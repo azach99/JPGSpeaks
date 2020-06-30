@@ -146,7 +146,7 @@ class SubmissionData(submissions_db.Model):
     def __repr__(self):
         return "Submission({} {} {})".format(self.submission, self.year, self.key)
 
-class ArchivesData(archives_db):
+class ArchivesData(archives_db.Model):
     id = archives_db.Column(archives_db.Integer, primary_key = True)
     submission = archives_db.Column(archives_db.String(3000))
     year = archives_db.Column(archives_db.String(100))
