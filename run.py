@@ -90,7 +90,10 @@ def logout():
 def submissions():
     if (current_user.is_authenticated):
         sub_list = SubmissionData.query.all()
-        return render_template("submissions.html", sub_list = sub_list)
+        key_list = []
+        for item in ReadData.query.all():
+            key_list.append(item.key)
+        return render_template("submissions.html", sub_list = sub_list, key_list = key_list)
     else:
         flash("You do not have rights to access this page", "danger")
         return redirect(url_for("home"))
@@ -139,13 +142,17 @@ def submission_info(id):
     read_form = ReadForm()
     form = SubForm()
     read_form.area.data = submission.submission
-    if (read_form.validate_on_submit()):
-        flash("Success", "success")
-        if(str(read_form.reading.data) == str("Yes")):
-            read = ReadData(id = submission.id, submission = submission.submission, year = submission.year, key = submission.key)
-            read_db.session.add(read)
-            read_db.session.commit()
-            return redirect(url_for("submissions"))
+    read_id_list = []
+    for item in ReadData.query.all():
+        read_id_list.append(item.key)
+    if (id not in read_id_list):
+        if (read_form.validate_on_submit()):
+            flash("Success", "success")
+            if(str(read_form.reading.data) == str("Yes")):
+                read = ReadData(id = submission.id, submission = submission.submission, year = submission.year, key = submission.key)
+                read_db.session.add(read)
+                read_db.session.commit()
+                return redirect(url_for("submissions"))
     return render_template("submissioninfo.html", form = form, year = year, read_form = read_form)
 
 @app.route("/archive/<id>", methods = ['GET', 'POST'])
