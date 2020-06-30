@@ -18,8 +18,9 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///submissions.db'
 submissions_db = SQLAlchemy(app)
 db = SQLAlchemy(app)
 archives_db = SQLAlchemy(app)
-bcrypt = Bcrypt(app)
+read_db = SQLAlchemy(app)
 
+bcrypt = Bcrypt(app)
 login_manager = LoginManager(app)
 app.config['MAIL_SERVER'] = 'smtp.googlemail.com'
 app.config['MAIL_PORT'] = 587
@@ -179,6 +180,12 @@ class ArchivesData(archives_db.Model):
     submission = archives_db.Column(archives_db.String(3000))
     year = archives_db.Column(archives_db.String(100))
     key = archives_db.Column(archives_db.String(200))
+
+class ReadData(read_db.Model):
+    id = read_db.Column(read_db.Integer, primary_key=True)
+    submission = read_db.Column(read_db.String(3000))
+    year = read_db.Column(read_db.String(100))
+    key = read_db.Column(read_db.String(200))
 
 class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key = True)
