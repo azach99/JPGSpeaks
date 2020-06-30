@@ -24,6 +24,13 @@
                     <h5>New</h5>
                 {% endif %}
             </div>
+            <div class = "col-sm">
+                {% if item.key in key_post_list %}
+                    <h5>Post</h5>
+                {% else %}
+                    <h5>TBD</h5>
+                {% endif %}
+            </div>
         </div>
 
     {% endfor%}

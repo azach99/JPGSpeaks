@@ -19,6 +19,7 @@ submissions_db = SQLAlchemy(app)
 db = SQLAlchemy(app)
 archives_db = SQLAlchemy(app)
 read_db = SQLAlchemy(app)
+post_db = SQLAlchemy(app)
 
 bcrypt = Bcrypt(app)
 login_manager = LoginManager(app)
@@ -93,7 +94,10 @@ def submissions():
         key_list = []
         for item in ReadData.query.all():
             key_list.append(item.key)
-        return render_template("submissions.html", sub_list = sub_list, key_list = key_list)
+        key_post_list = []
+        for item in PostData.query.all():
+            key_post_list.append(item.key)
+        return render_template("submissions.html", sub_list = sub_list, key_list = key_list, key_post_list = key_post_list)
     else:
         flash("You do not have rights to access this page", "danger")
         return redirect(url_for("home"))
@@ -143,15 +147,24 @@ def submission_info(id):
     form = SubForm()
     read_form.area.data = submission.submission
     read_id_list = []
+    post_id_list = []
     for item in ReadData.query.all():
         read_id_list.append(item.key)
-    if (id not in read_id_list):
-        if (read_form.validate_on_submit()):
-            flash("Success", "success")
-            if(str(read_form.reading.data) == str("Yes")):
+    for item in PostData.query.all():
+        post_id_list.append(item)
+    if (read_form.validate_on_submit()):
+        flash("Success", "success")
+        if(str(read_form.reading.data) == str("Yes")):
+            if (id not in read_id_list):
                 read = ReadData(id = submission.id, submission = submission.submission, year = submission.year, key = submission.key)
                 read_db.session.add(read)
                 read_db.session.commit()
+                return redirect(url_for("submissions"))
+        if (str(read_form.posting.data) == str("Yes")):
+            if (id not in post_id_list):
+                post = PostData(id = submission.id, submission = submission.submission, year = submission.year, key = submission.key)
+                post_db.session.add(post)
+                post_db.session.commit()
                 return redirect(url_for("submissions"))
     return render_template("submissioninfo.html", form = form, year = year, read_form = read_form)
 
@@ -207,6 +220,12 @@ class ReadData(read_db.Model):
     submission = read_db.Column(read_db.String(3000))
     year = read_db.Column(read_db.String(100))
     key = read_db.Column(read_db.String(200))
+
+class PostData(post_db.Model):
+    id = post_db.Column(post_db.Integer, primary_key=True)
+    submission = post_db.Column(post_db.String(3000))
+    year = post_db.Column(post_db.String(100))
+    key = post_db.Column(post_db.String(200))
 
 
 class User(db.Model, UserMixin):
