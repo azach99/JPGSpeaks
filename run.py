@@ -133,6 +133,17 @@ def submission_info(id):
     form.area.data = submission.submission
     return render_template("submissioninfo.html", form = form, year = year)
 
+@app.route("/archive/<id>", methods = ['GET', 'POST'])
+def archive_post(id):
+    submission = SubmissionData.query.filter_by(key = id).first()
+    input_archive = ArchivesData(id = submission.id, submission = submission.submission, year = submission.year, key = submission.key)
+    archives_db.add(input_archive)
+    archives_db.commit()
+    sub = SubmissionData.query.filter_by(key = id).delete()
+    return redirect(url_for("submissions"))
+
+
+
 
 class SubForm(FlaskForm):
     area = TextAreaField("Submission", render_kw={"rows": 8, "cols": 0})
