@@ -13,24 +13,25 @@
           <label for="year">Year</label>
             <h5>{{ item.year }}</h5>
         </div>
-            <div class="col-sm">
-
-            <h5><a href="{{ url_for('archive_post', id = item.key) }}">Archive</a></h5>
-        </div>
             <div class = "col-sm">
+                <label>Read?</label>
                 {% if item.key in key_list %}
-                    <h5>Read</h5>
+                    <h5>Yes</h5>
                 {% else %}
-                    <h5>New</h5>
+                    <h5>No</h5>
                 {% endif %}
             </div>
             <div class = "col-sm">
+                <label>Post?</label>
                 {% if item.key in key_post_list %}
-                    <h5>Post</h5>
+                    <h5>Yes</h5>
                 {% else %}
-                    <h5>TBD</h5>
+                    <h5>No</h5>
                 {% endif %}
             </div>
+            <div class="col-sm">
+            <h5><a href="{{ url_for('archive_post', id = item.key) }}">Archive</a></h5>
+             </div>
         </div>
 
     {% endfor%}
