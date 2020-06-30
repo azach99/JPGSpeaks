@@ -1,0 +1,19 @@
+{% extends "layou2.html" %}
+{% block content %}
+    <center>
+
+    {% for item in sub_list %}
+        <div class = "row">
+        <div class="col-sm">
+          <label for="year">ID</label>
+            <h5><a href="{{ url_for('submission_info', id = item.key) }}">{{ item.id }}</a></h5>
+        </div>
+        <div class="col-sm">
+          <label for="year">Year</label>
+            <h5>{{ item.year }}</h5>
+        </div>
+        </div>
+
+    {% endfor%}
+        </center>
+{% endblock content%}
