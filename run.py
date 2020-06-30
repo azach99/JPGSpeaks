@@ -143,6 +143,15 @@ def archive_post(id):
     submissions_db.session.commit()
     return redirect(url_for("submissions"))
 
+@app.route("/archives", methods = ['GET', 'POST'])
+def archives():
+    if (current_user.is_authenticated):
+        archive_list = ArchivesData.query.all()
+        return render_template("archives.html", sub_list = archive_list)
+    else:
+        flash("You do not have rights to access this page", "danger")
+        return redirect(url_for("home"))
+
 
 
 
