@@ -1,9 +1,40 @@
 {% extends "layou2.html" %}
 {% block content %}
     <center>
+        {{ read_form.hidden_tag() }}
     <div class = "col-sm">
     <h5>{{ form.area(class = "form-control form-control-lg") }}</h5>
     </div>
         <h6>Year: {{year}}</h6>
+        <br>
+        <br>
+     <div class = "col-md-6 mb-3">
+            <h5>Mark as Read?</h5>
+            {% if read_form.reading.errors %}
+              {{ read_form.reading(class = "read_form-control read_form-control-lg is-invalid")}}
+              <div class = "invalid-feedback">
+                {% for error in read_form.reading.errors %}
+                  <span>{{ error }}</span>
+                {% endfor %}
+              </div>
+            {% else %}
+              {{ read_form.reading(class = "read_form-control read_form-control-lg")}}
+            {% endif %}
+        </div>
+        <br>
+        <br>
+        <div class = "col-md-6 mb-3">
+                <h5>Post?</h5>
+            {% if read_form.posting.errors %}
+              {{ read_form.posting(class = "read_form-control read_form-control-lg is-invalid")}}
+              <div class = "invalid-feedback">
+                {% for error in read_form.posting.errors %}
+                  <span>{{ error }}</span>
+                {% endfor %}
+              </div>
+            {% else %}
+              {{ read_form.posting(class = "read_form-control read_form-control-lg")}}
+            {% endif %}
+        </div>
     </center>
 {% endblock content%}
