@@ -32,6 +32,12 @@
             {% endif %}
             {% if current_user.is_authenticated %}
                 <li class="nav-item">
+                  <a class="nav-link" href="/submissions">Submissions</a>
+              </li>
+            <li class="nav-item">
+                  <a class="nav-link" href="/archives">Archives</a>
+              </li>
+                <li class="nav-item">
                   <a class="nav-link" href="/logout">Logout</a>
               </li>
             {% endif %}
