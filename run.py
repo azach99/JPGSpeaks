@@ -17,6 +17,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///users.db'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///submissions.db'
 submissions_db = SQLAlchemy(app)
 db = SQLAlchemy(app)
+archives_db = SQLAlchemy(app)
 bcrypt = Bcrypt(app)
 
 login_manager = LoginManager(app)
@@ -145,6 +146,11 @@ class SubmissionData(submissions_db.Model):
     def __repr__(self):
         return "Submission({} {} {})".format(self.submission, self.year, self.key)
 
+class ArchivesData(archives_db):
+    id = archives_db.Column(archives_db.Integer, primary_key = True)
+    submission = archives_db.Column(archives_db.String(3000))
+    year = archives_db.Column(archives_db.String(100))
+    key = archives_db.Column(archives_db.String(200))
 
 class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key = True)
