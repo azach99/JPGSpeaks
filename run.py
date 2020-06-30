@@ -100,6 +100,11 @@ class SubmissionForm(FlaskForm):
     year = StringField("Year", validators = [DataRequired()])
     submit = SubmitField("Submit")
 
+class ReadForm(FlaskForm):
+    reading = SelectField("Mark as Read", choices = [("New", "New"), ("Read", "Read")])
+    posting = SelectField("Post?", choices = [("Post", "Post"), ("Do not Post", "Do not Post")])
+    submit = SubmitField("Submit")
+
 class LoginForm(FlaskForm):
     username = StringField("Username", validators = [DataRequired()])
     password = PasswordField("Password", validators = [DataRequired()])
@@ -186,6 +191,7 @@ class ReadData(read_db.Model):
     submission = read_db.Column(read_db.String(3000))
     year = read_db.Column(read_db.String(100))
     key = read_db.Column(read_db.String(200))
+
 
 class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key = True)
