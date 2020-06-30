@@ -137,9 +137,10 @@ def submission_info(id):
 def archive_post(id):
     submission = SubmissionData.query.filter_by(key = id).first()
     input_archive = ArchivesData(id = submission.id, submission = submission.submission, year = submission.year, key = submission.key)
-    archives_db.add(input_archive)
-    archives_db.commit()
-    sub = SubmissionData.query.filter_by(key = id).delete()
+    archives_db.session.add(input_archive)
+    archives_db.session.commit()
+    SubmissionData.query.filter_by(key = "{}".format(submission.key)).delete()
+    submissions_db.session.commit()
     return redirect(url_for("submissions"))
 
 
