@@ -101,8 +101,8 @@ class SubmissionForm(FlaskForm):
     submit = SubmitField("Submit")
 
 class ReadForm(FlaskForm):
-    reading = SelectField("Mark as Read", choices = [("New", "New"), ("Read", "Read")])
-    posting = SelectField("Post?", choices = [("Post", "Post"), ("Do not Post", "Do not Post")])
+    reading = SelectField("Mark as Read", choices = [("Select", "Select"), ("Yes", "Yes"), ("No", "No")])
+    posting = SelectField("Post?", choices = [("Select", "Select"), ("Yes", "No"), ("Yes", "No")])
     submit = SubmitField("Submit")
 
 class LoginForm(FlaskForm):
