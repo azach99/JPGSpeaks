@@ -1,9 +1,10 @@
 {% extends "layou2.html" %}
 {% block content %}
     <center>
+         <form class = "needs-validation" method = "POST">
         {{ read_form.hidden_tag() }}
     <div class = "col-sm">
-    <h5>{{ form.area(class = "form-control form-control-lg") }}</h5>
+    <h5>{{ read_form.area(class = "form-control form-control-lg") }}</h5>
     </div>
         <h6>Year: {{year}}</h6>
         <br>
@@ -39,5 +40,6 @@
         <div class = "form-group">
                 {{ read_form.submit(class = "btn btn-outline-info")}}
           </div>
+             </form>
     </center>
 {% endblock content%}

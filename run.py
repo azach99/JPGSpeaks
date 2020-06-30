@@ -101,6 +101,7 @@ class SubmissionForm(FlaskForm):
     submit = SubmitField("Submit")
 
 class ReadForm(FlaskForm):
+    area = TextAreaField("Submission", render_kw={"rows": 8, "cols": 0})
     reading = SelectField("Mark as Read", choices = [("Select", "Select"), ("Yes", "Yes"), ("No", "No")])
     posting = SelectField("Post?", choices = [("Select", "Select"), ("Yes", "Yes"), ("No", "No")])
     submit = SubmitField("Submit")
@@ -137,10 +138,10 @@ def submission_info(id):
     year = submission.year
     read_form = ReadForm()
     form = SubForm()
-    form.area.data = submission.submission
+    read_form.area.data = submission.submission
     if (read_form.validate_on_submit()):
         flash("Success", "success")
-        if(str(read_form.reading.data()) == str("Yes")):
+        if(str(read_form.reading.data) == str("Yes")):
             read = ReadData(id = submission.id, submission = submission.submission, year = submission.year, key = submission.key)
             read_db.session.add(read)
             read_db.session.commit()
