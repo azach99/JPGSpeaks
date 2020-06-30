@@ -102,7 +102,7 @@ class SubmissionForm(FlaskForm):
 
 class ReadForm(FlaskForm):
     reading = SelectField("Mark as Read", choices = [("Select", "Select"), ("Yes", "Yes"), ("No", "No")])
-    posting = SelectField("Post?", choices = [("Select", "Select"), ("Yes", "No"), ("Yes", "No")])
+    posting = SelectField("Post?", choices = [("Select", "Select"), ("Yes", "Yes"), ("No", "No")])
     submit = SubmitField("Submit")
 
 class LoginForm(FlaskForm):
@@ -138,6 +138,13 @@ def submission_info(id):
     read_form = ReadForm()
     form = SubForm()
     form.area.data = submission.submission
+    if (read_form.validate_on_submit()):
+        flash("Success", "success")
+        if(str(read_form.reading.data()) == str("Yes")):
+            read = ReadData(id = submission.id, submission = submission.submission, year = submission.year, key = submission.key)
+            read_db.session.add(read)
+            read_db.session.commit()
+            return redirect(url_for("submissions"))
     return render_template("submissioninfo.html", form = form, year = year, read_form = read_form)
 
 @app.route("/archive/<id>", methods = ['GET', 'POST'])

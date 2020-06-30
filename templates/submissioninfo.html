@@ -23,7 +23,7 @@
         </div>
         <br>
         <br>
-        <div class = "col-md-6 mb-3">
+        <div class = "form-group">
                 <h5>Post?</h5>
             {% if read_form.posting.errors %}
               {{ read_form.posting(class = "read_form-control read_form-control-lg is-invalid")}}
@@ -36,5 +36,8 @@
               {{ read_form.posting(class = "read_form-control read_form-control-lg")}}
             {% endif %}
         </div>
+        <div class = "form-group">
+                {{ read_form.submit(class = "btn btn-outline-info")}}
+          </div>
     </center>
 {% endblock content%}
