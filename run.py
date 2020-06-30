@@ -135,9 +135,10 @@ class RegistrationForm(FlaskForm):
 def submission_info(id):
     submission = SubmissionData.query.filter_by(key = id).first()
     year = submission.year
+    read_form = ReadForm()
     form = SubForm()
     form.area.data = submission.submission
-    return render_template("submissioninfo.html", form = form, year = year)
+    return render_template("submissioninfo.html", form = form, year = year, read_form = read_form)
 
 @app.route("/archive/<id>", methods = ['GET', 'POST'])
 def archive_post(id):
