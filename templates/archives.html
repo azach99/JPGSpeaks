@@ -1,10 +1,18 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends "layou2.html" %}
+{% block content %}
+    <center>
 
-</body>
-</html>
+    {% for item in sub_list %}
+        <div class = "row">
+        <div class="col-sm">
+          <label for="year">ID</label>
+            <h5><a href="{{ url_for('archives_info', id = item.key) }}">{{ item.id }}</a></h5>
+        </div>
+        <div class="col-sm">
+          <label for="year">Year</label>
+            <h5>{{ item.year }}</h5>
+        </div>
+
+    {% endfor%}
+        </center>
+{% endblock content%}

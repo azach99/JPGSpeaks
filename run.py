@@ -152,6 +152,13 @@ def archives():
         flash("You do not have rights to access this page", "danger")
         return redirect(url_for("home"))
 
+@app.route("/archivesinfo/<id>", methods = ['GET', 'POST'])
+def archives_info(id):
+    submission = ArchivesData.query.filter_by(key = id).first()
+    year = submission.year
+    form = SubForm()
+    form.area.data = submission.submission
+    return render_template("archivesinfo.html", form = form, year = year)
 
 
 
