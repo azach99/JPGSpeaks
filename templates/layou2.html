@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <link href="static/mai.css" rel="stylesheet">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <!--<title>Title</title>-->
     {% if title %}
@@ -32,13 +33,10 @@
             {% endif %}
             {% if current_user.is_authenticated %}
                 <li class="nav-item">
-                  <a class="nav-link" href="/submissions">Submissions</a>
+                  <a class="nav-link" href="/logout">Logout</a>
               </li>
             <li class="nav-item">
                   <a class="nav-link" href="/archives">Archives</a>
-              </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="/logout">Logout</a>
               </li>
             {% endif %}
 
