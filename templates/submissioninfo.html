@@ -1,5 +1,23 @@
 {% extends "layou2.html" %}
 {% block content %}
+    <style>
+        h1, h2, h3, h4, h5, h6 {
+            color: white
+        }
+        a {
+            color: white
+        }
+        p {
+            color: white
+        }
+        label {
+            color: white
+        }
+        body {
+             background-image: url("static/assets/img/portfolio/space.png");
+             background-color: #64D4FF;
+        }
+    </style>
     <center>
          <form class = "needs-validation" method = "POST">
         {{ read_form.hidden_tag() }}
